@@ -16,7 +16,8 @@
     "@babel/register": "^7.6.2",
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "prettier": "1.18.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
