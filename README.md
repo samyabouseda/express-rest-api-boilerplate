@@ -1,30 +1,34 @@
-# Node ES6 Boilerplate
+Express & ES6 REST API Boilerplate
+==================================
 
-Boilerplate for a REST API built with Express.
+A straightforward boilerplate for building REST APIs with ES6 and Express.
 
-## Installation
+- ES6 support via [babel](https://babeljs.io)
+- CORS support via [cors](https://github.com/troygoode/node-cors)
 
-1. Clone repo    
-`git clone git@github.com:samyabouseda/node-express-rest-api-boilerplate`    
+## Getting started
 
-2. Change directory    
-`cd <dir_name>`    
+```sh
+# clone it
+git clone git@github.com:developit/express-es6-rest-api.git
+cd express-es6-rest-api
 
-3. Remove git folder    
-*nix: `rm -rf ./.git`    
-win: `RD /S /Q .git`    
+# Make it your own
+rm -rf .git && git init && npm init
 
-4. Edit **package.json**    
-Change `name, version, description, repository, author, bugs, homepage`    
+# Install dependencies
+npm install
 
-5. Install packages    
-`npm install`    
+# Add .env file to the root folder
+touch .env
 
-6. Update packages    
-`npm update`    
+# Add env variables to .env file for port and database url
+PORT=<port_nuber>
+DATABASE_URL=<db_url>
 
-7. Add `.env` file to the root folder   
-`touch .env`
+# Start development live-reload server
+npm start
+```    
 
 
 ## Scripts
