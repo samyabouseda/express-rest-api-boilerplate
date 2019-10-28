@@ -10,8 +10,8 @@ A straightforward boilerplate for building REST APIs with ES6 and Express.
 
 ```sh
 # clone it
-git clone git@github.com:developit/express-es6-rest-api.git
-cd express-es6-rest-api
+git clone git@github.com:samyabouseda/node-express-rest-api-boilerplate.git
+cd node-express-rest-api-boilerplate
 
 # Make it your own
 rm -rf .git && git init && npm init
@@ -28,13 +28,7 @@ DATABASE_URL=<db_url>
 
 # Start development live-reload server
 npm start
+
+# Run tests.
+npm test
 ```    
-
-
-## Scripts
-
-1. `npm start`    
-Transpile ES6 and start node server.
-
-2. `npm test`
-Run tests.
