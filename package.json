@@ -1,0 +1,24 @@
+{
+  "name": "users-rest-api",
+  "version": "1.0.0",
+  "description": "REST API for a resource called 'users'",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js",
+    "test": "mocha --require @babel/register 'src/**/**test.js'"
+  },
+  "author": "Samy Abouseda",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
