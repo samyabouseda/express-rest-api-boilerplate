@@ -1,22 +1,16 @@
 import 'dotenv/config'
+import express from 'express'
+import cors from 'cors'
 
-// simple usage of ES6 class to show babel is working
-class Greeter {
-    greet() {
-        console.log('Hello world!')
-    }
+const port = process.env.PORT
+const app = express()
 
-    greetUser(name) {
-        console.log(`Hello, ${name} !`)
-    }
-}
+app.use(cors())
 
-const greeter = new Greeter()
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
 
-greeter.greet()
-greeter.greetUser('Alice')
-greeter.greetUser('Bob')
-
-// output a variable stored in .env file
-// don't forget to import 'dotenv/config' at the top
-console.log(process.env.MY_SECRET)
+app.listen(port, () =>
+    console.log(`Example app listening on port ${port}!`)
+)

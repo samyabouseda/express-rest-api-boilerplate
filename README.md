@@ -23,6 +23,9 @@ Change `name, version, description, repository, author, bugs, homepage`
 6. Update packages    
 `npm update`    
 
+7. Add `.env` file to the root folder   
+`touch .env`
+
 
 ## Scripts
 
