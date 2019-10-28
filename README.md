@@ -1,11 +1,11 @@
 # Node ES6 Boilerplate
 
-Boilerplate for Node.js projects.
+Boilerplate for a REST API built with Express.
 
 ## Installation
 
 1. Clone repo    
-`git clone git@github.com:samyabouseda/node-es6-boilerplate`    
+`git clone git@github.com:samyabouseda/node-express-rest-api-boilerplate`    
 
 2. Change directory    
 `cd <dir_name>`    
