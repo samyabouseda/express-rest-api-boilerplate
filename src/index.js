@@ -1,10 +1,11 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
-import models, { connectDb } from './models'
-import routes from './routes'
+import models from './models'
+import { connectDb } from './db'
+import controllers from './controllers'
 
-const eraseDatabaseOnSync = true
+const eraseDatabaseOnSync = process.env.ERASE_DB_ON_SYNC
 const port = process.env.PORT
 const app = express()
 
@@ -20,9 +21,9 @@ app.use(async (req, res, next) => {
 	next()
 })
 
-app.use('/session', routes.session)
-app.use('/users', routes.user)
-app.use('/messages', routes.message)
+app.use('/session', controllers.session)
+app.use('/users', controllers.user)
+app.use('/messages', controllers.message)
 
 connectDb().then(async () => {
 	if (eraseDatabaseOnSync) {
@@ -43,7 +44,7 @@ const createUsersWithMessages = async () => {
 		username: 'rwieruch',
 	})
 	const user2 = new models.User({
-		username: 'ddavids',
+		username: 'boby',
 	})
 
 	const message1 = new models.Message({
@@ -55,7 +56,7 @@ const createUsersWithMessages = async () => {
 		user: user2.id,
 	})
 	const message3 = new models.Message({
-		text: 'Published a complete ...',
+		text: 'Published a complete book',
 		user: user2.id,
 	})
 
