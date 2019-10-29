@@ -1,0 +1,5 @@
+{
+  "name": "Test",
+  "database": "mongodb://mongo:27017/test",
+  "port": 8081
+}
