@@ -3,13 +3,12 @@ import mongoose from 'mongoose'
 import models from '../models'
 
 const eraseDatabaseOnSync = process.env.ERASE_DB_ON_SYNC
-const port = process.env.PORT
 
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useUnifiedTopology', true)
 mongoose.set('useCreateIndex', true)
 
-const connectDb = app =>
+const connectDb = () =>
 	mongoose.connect(process.env.DATABASE_URL).then(async () => {
 		if (eraseDatabaseOnSync) {
 			await Promise.all([
@@ -18,10 +17,6 @@ const connectDb = app =>
 			])
 			createUsersWithMessages()
 		}
-
-		app.listen(port, () =>
-			console.log(`App listening on port ${port}!`),
-		)
 	})
 const db = mongoose.connection
 
@@ -36,7 +31,7 @@ const createUsersWithMessages = async () => {
 		username: 'boby',
 	})
 	const user3 = new models.User({
-		username: 'Dan',
+		username: 'Dan Abramov',
 	})
 
 	const message1 = new models.Message({
