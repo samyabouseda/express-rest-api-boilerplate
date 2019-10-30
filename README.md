@@ -31,6 +31,9 @@ touch .env
 PORT=<port_nuber>
 DATABASE_URL=<db_url>
 
+# Start mongodb on your local machine
+mongod
+
 # Start development live-reload server
 npm start
 
