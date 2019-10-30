@@ -1,7 +1,4 @@
-import user from './UserController'
-import message from './MessageController'
+import UserController from './UserController'
+import MessageController from './MessageController'
 
-export default {
-	user,
-	message,
-}
+export { UserController, MessageController }

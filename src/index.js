@@ -2,11 +2,11 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import models from './models'
-import { connectDb } from './db'
-import controllers from './controllers'
+import { connectDb } from './datasources'
+import routes from './api'
 
 const app = express()
-const port = process.env.PORT
+const PORT = process.env.PORT
 
 app.use(cors())
 app.use(express.json())
@@ -18,11 +18,10 @@ app.use(async (req, res, next) => {
 	next()
 })
 
-app.use('/users', controllers.user)
-app.use('/messages', controllers.message)
+app.use('/', routes)
 
 connectDb().then(async () => {
-	app.listen(port, () =>
-		console.log(`App listening on port ${port}!`),
+	app.listen(PORT, () =>
+		console.log(`Server is running at ${PORT}`),
 	)
 })
