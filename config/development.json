@@ -1,5 +1,0 @@
-{
-  "name": "Developement",
-  "database": "mongodb://mongo:27017/development",
-  "port": 8080
-}

@@ -1,12 +1,12 @@
-import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
+import config from '../config'
 import connectDb from './datasources'
 import routes from './api'
 import { applyMiddleware, injectModels } from './middleware'
 
 const app = express()
-const PORT = process.env.PORT
+const PORT = config.port
 
 applyMiddleware(app, [
 	cors(),
