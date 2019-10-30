@@ -2,6 +2,7 @@ import 'dotenv/config'
 import mongoose from 'mongoose'
 import models from '../models'
 
+// TODO: Refactor to improve readability and modularity.
 const ERASE_DB_ON_SYNC = process.env.ERASE_DB_ON_SYNC
 
 mongoose.set('useNewUrlParser', true)

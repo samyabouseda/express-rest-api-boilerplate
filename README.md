@@ -1,12 +1,16 @@
-Express & ES6 REST API Boilerplate
-==================================
+# Express & ES6 REST API Boilerplate
 
-A straightforward boilerplate for building REST APIs with ES6 and Express.
+A straightforward boilerplate for building REST APIs with javascript ES6 and Express.
 
-- ES6 support via [babel](https://babeljs.io)
-- CORS support via [cors](https://github.com/troygoode/node-cors)
+## Getting Started
 
-## Getting started
+These instructions will get you a copy of the project up and running on your local machine for development and testing 
+purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+- [Node.js](https://nodejs.org/en/)
+
+## Installation
 
 ```sh
 # clone it
@@ -29,6 +33,85 @@ DATABASE_URL=<db_url>
 # Start development live-reload server
 npm start
 
-# Run tests.
-npm test
+# Docker support
+more to come...
 ```    
+
+## Usage
+Create a model in the models folder.
+To learn more about this, check the [mongoose documentation](https://mongoosejs.com).
+```
+import { Schema, model } from 'mongoose'
+
+const bookSchema = new Schema({
+    id: {
+        type: Number,
+        unique: true,
+    },
+    title: {
+        type: String,
+        unique: true,
+    },
+})
+
+const Book = model('Book', bookSchema)
+
+export default Book
+
+```
+
+Create a controller for that model in the controllers folder. To learn more about this, check the [Express documentation](https://expressjs.com/en/guide/routing.html).
+```
+import { Router } from 'express'
+
+const routes = Router()
+
+routes.get('/', async (req, res) => {
+    const books = await req.context.models.Book.find()
+    return res.send(books)
+})
+
+routes.get('/:bookId', async (req, res) => {
+    const book = await req.context.models.Book.findById(
+    	req.params.bookId,
+    )
+    return res.send(book)
+})
+
+export default routes
+
+```
+
+Add the newly created controller to the `index.js` file in the api folder.
+```
+import { BookController } from '../controllers'
+
+routes.use('/books', BookController)
+```
+
+## Running the tests
+```
+npm test
+
+more to come...
+```
+
+## Deployment
+```
+more to come...
+```
+
+## Built with
+- [Express](https://expressjs.com) - The web framework for [Node.js](https://nodejs.org/en/)
+- [Babel](https://babeljs.io) - To support ES6 syntax
+- [Cors](https://github.com/troygoode/node-cors) - For CORS support 
+- [Nodemon](https://nodemon.io) - For automatic server restart on file change
+- [Mongoose](https://mongoosejs.com) - Mongodb object modeling
+
+## Authors
+
+* **Samy Abouseda** - [samyabouseda](https://github.com/samyabouseda)
+
+## License
+
+[MIT](LICENSE.md)
