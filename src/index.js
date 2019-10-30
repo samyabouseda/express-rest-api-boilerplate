@@ -14,12 +14,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(async (req, res, next) => {
 	req.context = {
 		models,
-		me: await models.User.findByLogin('rwieruch'),
 	}
 	next()
 })
 
-app.use('/session', controllers.session)
 app.use('/users', controllers.user)
 app.use('/messages', controllers.message)
 

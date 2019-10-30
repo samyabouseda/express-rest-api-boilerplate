@@ -23,6 +23,7 @@ const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to database'))
 
+// TODO: Replace with a seed function reading from json file.
 const createUsersWithMessages = async () => {
 	const user1 = new models.User({
 		username: 'rwieruch',
