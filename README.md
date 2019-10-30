@@ -9,6 +9,7 @@ purposes. See deployment for notes on how to deploy the project on a live system
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/en/)
+- [MongoDB](https://docs.mongodb.com/manual/installation/)
 
 ## Installation
 
