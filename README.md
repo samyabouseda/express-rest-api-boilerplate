@@ -40,7 +40,7 @@ more to come...
 ## Usage
 Create a model in the models folder.
 To learn more about this, check the [mongoose documentation](https://mongoosejs.com).
-```
+```js
 import { Schema, model } from 'mongoose'
 
 const bookSchema = new Schema({
