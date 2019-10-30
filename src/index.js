@@ -1,22 +1,19 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
-import models from './models'
-import { connectDb } from './datasources'
+import connectDb from './datasources'
 import routes from './api'
+import { applyMiddleware, injectModels } from './middleware'
 
 const app = express()
 const PORT = process.env.PORT
 
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(async (req, res, next) => {
-	req.context = {
-		models,
-	}
-	next()
-})
+applyMiddleware(app, [
+	cors(),
+	express.json(),
+	express.urlencoded({ extended: true }),
+	injectModels,
+])
 
 app.use('/', routes)
 

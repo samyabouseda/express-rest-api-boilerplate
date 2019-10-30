@@ -1,4 +1,9 @@
-import { connectDb } from './mongo'
+import { connectMongoDb } from './mongo'
+// import { connectSomeDb } from './someDb'
 
-// handle database driver here
-export { connectDb }
+const connectDb = () => {
+	// handle database connection driver here.
+	return connectMongoDb
+}
+
+export default connectDb()

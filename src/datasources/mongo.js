@@ -2,15 +2,15 @@ import 'dotenv/config'
 import mongoose from 'mongoose'
 import models from '../models'
 
-const eraseDatabaseOnSync = process.env.ERASE_DB_ON_SYNC
+const ERASE_DB_ON_SYNC = process.env.ERASE_DB_ON_SYNC
 
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useUnifiedTopology', true)
 mongoose.set('useCreateIndex', true)
 
-const connectDb = () =>
+const connectMongoDb = () =>
 	mongoose.connect(process.env.DATABASE_URL).then(async () => {
-		if (eraseDatabaseOnSync) {
+		if (ERASE_DB_ON_SYNC) {
 			await Promise.all([
 				models.User.deleteMany({}),
 				models.Message.deleteMany({}),
@@ -56,4 +56,4 @@ const createUsersWithMessages = async () => {
 	await user3.save()
 }
 
-export { connectDb }
+export { connectMongoDb }
