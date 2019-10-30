@@ -8,6 +8,18 @@ mongoose.set('useNewUrlParser', true)
 mongoose.set('useUnifiedTopology', true)
 mongoose.set('useCreateIndex', true)
 
+const fs = require('fs')
+const util = require('util')
+const readFile = util.promisify(fs.readFile)
+const dataFilePath = `${__dirname}/seeds/data.json`
+
+let seeds = []
+readFile(dataFilePath)
+	.then(data => {
+		seeds = JSON.parse(data)
+	})
+	.catch(error => console.log(error))
+
 const connectMongoDb = () =>
 	mongoose.connect(process.env.DATABASE_URL).then(async () => {
 		if (ERASE_DB_ON_SYNC) {
@@ -15,45 +27,38 @@ const connectMongoDb = () =>
 				models.User.deleteMany({}),
 				models.Message.deleteMany({}),
 			])
-			createUsersWithMessages()
+			seed(seeds)
 		}
 	})
 const db = mongoose.connection
-
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to database'))
 
-// TODO: Replace with a seed function reading from json file.
-const createUsersWithMessages = async () => {
-	const user1 = new models.User({
-		username: 'rwieruch',
+const seed = async seeds => {
+	await seeds.map(async seed => {
+		const entry = await createEntry(seed)
+		const owns = seed.owns
+		if (owns) {
+			owns.map(async own => {
+				const { model, fields } = own
+				const { fk, ...field } = fields
+				const obj = {
+					model,
+					fields: {
+						[fk]: entry.id,
+						...field,
+					},
+				}
+				await createEntry(obj)
+			})
+		}
 	})
-	const user2 = new models.User({
-		username: 'boby',
-	})
-	const user3 = new models.User({
-		username: 'Dan Abramov',
-	})
+}
 
-	const message1 = new models.Message({
-		text: 'Published the Road to learn React',
-		user: user1.id,
-	})
-	const message2 = new models.Message({
-		text: 'Happy to release ...',
-		user: user2.id,
-	})
-	const message3 = new models.Message({
-		text: 'Published a complete book',
-		user: user2.id,
-	})
-
-	await message1.save()
-	await message2.save()
-	await message3.save()
-	await user1.save()
-	await user2.save()
-	await user3.save()
+const createEntry = async seed => {
+	const entry = new models[seed.model](seed.fields)
+	await entry.save()
+	return entry
 }
 
 export { connectMongoDb }
