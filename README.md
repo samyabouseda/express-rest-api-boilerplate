@@ -61,7 +61,7 @@ export default Book
 ```
 
 Create a controller for that model in the controllers folder. To learn more about this, check the [Express documentation](https://expressjs.com/en/guide/routing.html).
-```
+```js
 import { Router } from 'express'
 
 const routes = Router()
@@ -83,7 +83,7 @@ export default routes
 ```
 
 Add the newly created controller to the `index.js` file in the api folder.
-```
+```js
 import { BookController } from '../controllers'
 
 routes.use('/books', BookController)
