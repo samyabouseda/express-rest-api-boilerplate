@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:12
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -13,5 +13,5 @@ COPY . .
 # Expose port
 EXPOSE 8080
 
-# Atart application
+# Start application
 CMD [ "npm", "start" ]
