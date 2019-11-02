@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import config from '../config'
-import connectDb from './datasources'
+import connectDb from './database'
 import routes from './api'
 import { applyMiddleware, injectModels } from './middleware'
 
