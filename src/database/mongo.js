@@ -15,6 +15,7 @@ const readFile = util.promisify(fs.readFile)
 const dataFilePath = `${__dirname}/seeds/data.json`
 
 let seeds = []
+// const seedRegex = **/?(*.)+(seed).[tj]s?(x)
 readFile(dataFilePath)
 	.then(data => {
 		seeds = JSON.parse(data)

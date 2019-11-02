@@ -1,4 +1,11 @@
-export default users = {
+export const users = {
 	model: 'User',
-	data: [{}],
+	data: [
+		{
+			username: 'Juan',
+		},
+		{
+			username: 'Maria',
+		},
+	],
 }
