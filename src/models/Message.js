@@ -8,6 +8,8 @@ const schema = new Schema({
 	user: {
 		type: Types.ObjectId,
 		ref: 'User',
+		// TODO: refactor seeding to include foreign key creation.
+		// required: true,
 	},
 })
 
