@@ -1,4 +1,10 @@
 import { Router } from 'express'
+import {
+	CREATED,
+	INTERNAL_SERVER_ERROR,
+	OK,
+	NO_CONTENT,
+} from 'http-status-codes'
 
 const router = Router()
 
@@ -7,11 +13,13 @@ const createUser = async (req, res) => {
 		const user = await req.context.models.User.create({
 			username: req.body.username,
 		})
-		return res.status(201).json({
+		return res.status(CREATED).json({
 			user,
 		})
 	} catch (error) {
-		return res.status(500).json({ error: error.message })
+		return res
+			.status(INTERNAL_SERVER_ERROR)
+			.json({ error: error.message })
 	}
 }
 
@@ -26,25 +34,31 @@ const updateUser = async (req, res) => {
 			(err, user) => {
 				if (err) {
 					console.log(err)
-					res.status(500).json({ error: error.message })
+					res.status(INTERNAL_SERVER_ERROR).json({
+						error: error.message,
+					})
 				} else {
-					res.status(200).json({ user })
+					res.status(OK).json({ user })
 				}
 			},
 		)
 	} catch (error) {
-		return res.status(500).json({ error: error.message })
+		return res
+			.status(INTERNAL_SERVER_ERROR)
+			.json({ error: error.message })
 	}
 }
 
 const getUsers = async (req, res) => {
 	try {
 		const users = await req.context.models.User.find()
-		return res.status(200).json({
+		return res.status(OK).json({
 			users,
 		})
 	} catch (error) {
-		return res.status(500).json({ error: error.message })
+		return res
+			.status(INTERNAL_SERVER_ERROR)
+			.json({ error: error.message })
 	}
 }
 
@@ -53,9 +67,11 @@ const getUserById = async (req, res) => {
 		const user = await req.context.models.User.findById(
 			req.params.userId,
 		)
-		return res.status(200).json({ user })
+		return res.status(OK).json({ user })
 	} catch (error) {
-		return res.status(500).json({ error: error.message })
+		return res
+			.status(INTERNAL_SERVER_ERROR)
+			.json({ error: error.message })
 	}
 }
 
@@ -64,11 +80,13 @@ const deleteUser = async (req, res) => {
 		const user = await req.context.models.User.findByIdAndDelete(
 			req.params.userId,
 		)
-		return res.status(204).json({
+		return res.status(NO_CONTENT).json({
 			success: `User with id ${user.id} deleted successfully!`,
 		})
 	} catch (error) {
-		return res.status(500).json({ error: error.message })
+		return res
+			.status(INTERNAL_SERVER_ERROR)
+			.json({ error: error.message })
 	}
 }
 
