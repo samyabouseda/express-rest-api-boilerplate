@@ -15,13 +15,27 @@ const createUser = async (req, res) => {
 	}
 }
 
-// TODO: Add example for put method
-// const updateUser = async (req, res) => {
-// 	try {
-// 	} catch (error) {
-// 		return res.status(500).json({ error: error.message })
-// 	}
-// }
+const updateUser = async (req, res) => {
+	const { userId } = req.params
+	const updatedUser = req.body
+	try {
+		await req.context.models.User.findByIdAndUpdate(
+			userId,
+			{ ...updatedUser },
+			{ new: true },
+			(err, user) => {
+				if (err) {
+					console.log(err)
+					res.status(500).json({ error: error.message })
+				} else {
+					res.status(200).json({ user })
+				}
+			},
+		)
+	} catch (error) {
+		return res.status(500).json({ error: error.message })
+	}
+}
 
 const getUsers = async (req, res) => {
 	try {
@@ -59,9 +73,9 @@ const deleteUser = async (req, res) => {
 }
 
 router.post('/', createUser)
-// router.put('/', updateUser)
 router.get('/', getUsers)
 router.get('/:userId', getUserById)
+router.put('/:userId', updateUser)
 router.delete('/:userId', deleteUser)
 
 export default router

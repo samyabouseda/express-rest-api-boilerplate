@@ -8,6 +8,7 @@ const ERASE_DB_ON_SYNC = process.env.ERASE_DB_ON_SYNC
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useUnifiedTopology', true)
 mongoose.set('useCreateIndex', true)
+mongoose.set('useFindAndModify', false)
 
 const fs = require('fs')
 const util = require('util')
