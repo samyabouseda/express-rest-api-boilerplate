@@ -66,33 +66,41 @@ export default Book
 
 Create a controller for that model in the controllers folder. To learn more about this, check the [Express documentation](https://expressjs.com/en/guide/routing.html).
 ```js
-import { Router } from 'express'
-
-const routes = Router()
-
-routes.get('/', async (req, res) => {
+const getAll = async (req, res) => {
     const books = await req.context.models.Book.find()
     return res.send(books)
-})
+}
 
-routes.get('/:bookId', async (req, res) => {
+const getById = async (req, res) => {
     const book = await req.context.models.Book.findById(
     	req.params.bookId,
     )
     return res.send(book)
 })
 
+export default { getAll, getById }
+```
+
+Create a new file named `bookRoutes.js` in the `routes` folder. Link the newly created controller to the routes.
+```js
+import { Router } from 'express'
+import { BookController } from '../controllers'
+
+const routes = Router()
+
+routes.post('/', BookController.getAll)
+routes.get('/:bookId', BookController.getById)
+
 export default routes
 
 ```
 
-Add the newly created controller to the `index.js` file in the api folder.
+Add the new endpoint to `index.js` file in the `routes` folder.
 ```js
-import { BookController } from '../controllers'
+import bookRoutes from '../bookRoutes'
 
-router.use('/books', BookController)
+router.use('/books', bookRoutes)
 ```
-
 ## Database 
 
 ### Seeding
