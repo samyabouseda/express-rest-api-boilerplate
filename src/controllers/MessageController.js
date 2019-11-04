@@ -14,7 +14,7 @@ router.get('/:messageId', async (req, res) => {
 	return res.send(message)
 })
 
-const createPost = async (req, res) => {
+const createMessage = async (req, res) => {
 	try {
 		const message = await req.context.models.Message.create({
 			text: req.body.text,
@@ -28,7 +28,7 @@ const createPost = async (req, res) => {
 	}
 }
 
-router.post('/', createPost)
+router.post('/', createMessage)
 
 router.delete('/:messageId', async (req, res) => {
 	const message = await req.context.models.Message.findById(
