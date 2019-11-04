@@ -3,6 +3,7 @@ import {
 	INTERNAL_SERVER_ERROR,
 	OK,
 	NO_CONTENT,
+	NOT_FOUND,
 } from 'http-status-codes'
 
 const create = async (req, res) => {
@@ -66,9 +67,7 @@ const getById = async (req, res) => {
 		)
 		return res.status(OK).json({ user })
 	} catch (error) {
-		return res
-			.status(INTERNAL_SERVER_ERROR)
-			.json({ error: error.message })
+		return res.status(NOT_FOUND).json({ error: error.message })
 	}
 }
 
