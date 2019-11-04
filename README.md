@@ -109,12 +109,15 @@ more to come...
 ### Migration
 more to come...
 
-## Running the tests
+## Tests
+
+### Running the tests
 ```
 npm test
-
-more to come...
 ```
+
+### Testing the API
+more to come...
 
 ## Deployment
 ```
@@ -128,7 +131,7 @@ more to come...
 - [Nodemon](https://nodemon.io) - For automatic server restart on file change
 - [Mongoose](https://mongoosejs.com) - Mongodb object modeling
 
-## Authors
+## Author
 
 * **Samy Abouseda** - [samyabouseda](https://github.com/samyabouseda)
 
