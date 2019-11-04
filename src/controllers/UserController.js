@@ -1,4 +1,3 @@
-import { Router } from 'express'
 import {
 	CREATED,
 	INTERNAL_SERVER_ERROR,
@@ -6,9 +5,7 @@ import {
 	NO_CONTENT,
 } from 'http-status-codes'
 
-const router = Router()
-
-const createUser = async (req, res) => {
+const create = async (req, res) => {
 	try {
 		const user = await req.context.models.User.create({
 			username: req.body.username,
@@ -23,7 +20,7 @@ const createUser = async (req, res) => {
 	}
 }
 
-const updateUser = async (req, res) => {
+const update = async (req, res) => {
 	const { userId } = req.params
 	const updatedUser = req.body
 	try {
@@ -49,7 +46,7 @@ const updateUser = async (req, res) => {
 	}
 }
 
-const getUsers = async (req, res) => {
+const getAll = async (req, res) => {
 	try {
 		const users = await req.context.models.User.find()
 		return res.status(OK).json({
@@ -62,7 +59,7 @@ const getUsers = async (req, res) => {
 	}
 }
 
-const getUserById = async (req, res) => {
+const getById = async (req, res) => {
 	try {
 		const user = await req.context.models.User.findById(
 			req.params.userId,
@@ -75,7 +72,7 @@ const getUserById = async (req, res) => {
 	}
 }
 
-const deleteUser = async (req, res) => {
+const remove = async (req, res) => {
 	try {
 		const user = await req.context.models.User.findByIdAndDelete(
 			req.params.userId,
@@ -90,10 +87,10 @@ const deleteUser = async (req, res) => {
 	}
 }
 
-router.post('/', createUser)
-router.get('/', getUsers)
-router.get('/:userId', getUserById)
-router.put('/:userId', updateUser)
-router.delete('/:userId', deleteUser)
-
-export default router
+export default {
+	create,
+	getAll,
+	getById,
+	update,
+	remove,
+}

@@ -4,7 +4,7 @@
   "description": "REST API for a resource called 'users'",
   "main": "src/index.js",
   "scripts": {
-    "start": "NODE_ENV=development nodemon --exec babel-node src/index.js",
+    "start": "DEBUG=express:* NODE_ENV=development nodemon --exec babel-node src/index.js",
     "test": "jest --watch --verbose"
   },
   "author": "Samy Abouseda",

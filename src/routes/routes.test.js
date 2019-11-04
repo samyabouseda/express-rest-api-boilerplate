@@ -5,7 +5,7 @@ import { setupDB } from '../test-setup'
 
 const request = supertest(app)
 
-setupDB('api')
+setupDB('routes')
 
 describe('API', () => {
 	it('is connected', async done => {

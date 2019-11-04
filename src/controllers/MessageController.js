@@ -1,36 +1,41 @@
-import { Router } from 'express'
+import {
+	CREATED,
+	INTERNAL_SERVER_ERROR,
+	OK,
+	NO_CONTENT,
+} from 'http-status-codes'
 
-const router = Router()
-
-router.get('/', async (req, res) => {
-	const messages = await req.context.models.Message.find()
-	return res.send(messages)
-})
-
-router.get('/:messageId', async (req, res) => {
-	const message = await req.context.models.Message.findById(
-		req.params.messageId,
-	)
-	return res.send(message)
-})
-
-const createMessage = async (req, res) => {
+const create = async (req, res) => {
 	try {
 		const message = await req.context.models.Message.create({
 			text: req.body.text,
 			user: req.body.id,
 		})
-		return res.status(201).json({
+		return res.status(CREATED).json({
 			message,
 		})
 	} catch (error) {
-		return res.status(500).json({ error: error.message })
+		return res
+			.status(INTERNAL_SERVER_ERROR)
+			.json({ error: error.message })
 	}
 }
 
-router.post('/', createMessage)
+const getAll = async (req, res) => {
+	const messages = await req.context.models.Message.find()
+	return res.send(messages)
+}
 
-router.delete('/:messageId', async (req, res) => {
+const getById = async (req, res) => {
+	const message = await req.context.models.Message.findById(
+		req.params.messageId,
+	)
+	return res.send(message)
+}
+
+const update = () => {}
+
+const remove = async (req, res) => {
 	const message = await req.context.models.Message.findById(
 		req.params.messageId,
 	)
@@ -39,6 +44,12 @@ router.delete('/:messageId', async (req, res) => {
 		result = await message.remove()
 	}
 	return res.send(result)
-})
+}
 
-export default router
+export default {
+	create,
+	getAll,
+	getById,
+	update,
+	remove,
+}

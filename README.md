@@ -90,8 +90,16 @@ Add the newly created controller to the `index.js` file in the api folder.
 ```js
 import { BookController } from '../controllers'
 
-routes.use('/books', BookController)
+router.use('/books', BookController)
 ```
+
+## Database 
+
+### Seeding
+more to come...
+
+### Migration
+more to come...
 
 ## Running the tests
 ```

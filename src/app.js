@@ -1,7 +1,7 @@
 import express from 'express'
-import { applyMiddleware, injectModels } from './middleware'
+import { applyMiddleware, injectModels } from './middlewares'
 import cors from 'cors'
-import routes from './api'
+import router from './routes'
 
 const app = express()
 
@@ -12,6 +12,6 @@ applyMiddleware(app, [
 	injectModels,
 ])
 
-app.use('/', routes)
+app.use('/', router)
 
 export default app
