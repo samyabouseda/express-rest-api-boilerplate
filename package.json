@@ -8,7 +8,8 @@
     "test": "jest --watch --verbose",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "NODE_ENV=production babel -d ./build ./src -s",
-    "build": "npm run clean && npm run build-babel"
+    "build": "npm run clean && npm run build-babel && cp ./src/database/seeds/*.json ./build/database/seeds/",
+    "serve": "NODE_ENV=production node ./build/index.js"
   },
   "author": "Samy Abouseda",
   "license": "MIT",
