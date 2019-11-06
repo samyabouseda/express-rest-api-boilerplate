@@ -1,10 +1,12 @@
 import chalk from 'chalk'
-import config from './config'
+import config from '../config'
 import connectDb from './database'
 import app from './app'
 const pkg = require('../package')
 
 const PORT = config.port
+console.log(config.hi)
+console.log(config.configId)
 
 connectDb().then(async () => {
 	app.listen(PORT, () => {
