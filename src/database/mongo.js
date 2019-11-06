@@ -2,14 +2,38 @@ import 'dotenv/config'
 import mongoose from 'mongoose'
 import models from '../models'
 
-// TODO: Refactor to improve readability and modularity.
-const ERASE_DB_ON_SYNC = process.env.ERASE_DB_ON_SYNC
+// TODO: Move this to a config file.
+const {
+	MONGO_HOSTNAME,
+	MONGO_PORT,
+	MONGO_DB,
+	ERASE_DB_ON_SYNC,
+} = process.env
+const DATABASE_URL = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`
+//
 
-mongoose.set('useNewUrlParser', true)
-mongoose.set('useUnifiedTopology', true)
-mongoose.set('useCreateIndex', true)
-mongoose.set('useFindAndModify', false)
+const options = {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useCreateIndex: true,
+	useFindAndModify: false,
+	reconnectTries: Number.MAX_VALUE,
+	reconnectInterval: 500,
+	connectTimeoutMS: 10000,
+}
 
+const connectMongoDb = () =>
+	mongoose
+		.connect(DATABASE_URL, options)
+		.then(async () => {
+			if (ERASE_DB_ON_SYNC) { await eraseDb() }
+			seed(seeds)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+
+// TODO: Refactor and move to specialized file.
 const fs = require('fs')
 const util = require('util')
 const readFile = util.promisify(fs.readFile)
@@ -22,20 +46,15 @@ readFile(dataFilePath)
 		seeds = JSON.parse(data)
 	})
 	.catch(error => console.log(error))
+//
 
-const connectMongoDb = () =>
-	mongoose.connect(process.env.DATABASE_URL).then(async () => {
-		if (ERASE_DB_ON_SYNC) {
-			await Promise.all([
-				models.User.deleteMany({}),
-				models.Message.deleteMany({}),
-			])
-			seed(seeds)
-		}
-	})
-const db = mongoose.connection
-db.on('error', error => console.error(error))
-db.once('open', () => console.log('Connected to database'))
+const eraseDb = async () => {
+	// TODO: Refactor to include all models dynamically.
+	await Promise.all([
+		models.User.deleteMany({}),
+		models.Message.deleteMany({}),
+	])
+}
 
 const seed = async seeds => {
 	await seeds.map(async seed => {
