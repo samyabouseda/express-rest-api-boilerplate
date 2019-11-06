@@ -5,8 +5,6 @@ import app from './app'
 const pkg = require('../package')
 
 const PORT = config.port
-console.log(config.hi)
-console.log(config.configId)
 
 connectDb().then(async () => {
 	app.listen(PORT, () => {
@@ -15,7 +13,9 @@ connectDb().then(async () => {
 		console.log(`  ${chalk.bold('Database is connected on port')} ${chalk.blue(process.env.MONGO_PORT)}`)
 		console.log(`  ${chalk.bold('Development server is running at')} http://127.0.0.1:${PORT}`)
 		console.log()
-		console.log('Note that the development build is not optimized.')
-		console.log(`To create a production build, use ${chalk.cyan('npm run build')}.`)
+		if(process.env.NODE_ENV === 'development') {
+			console.log('Note that the development build is not optimized.')
+			console.log(`To create a production build, use ${chalk.cyan('npm run build')}.`)
+		}
 	})
 })
