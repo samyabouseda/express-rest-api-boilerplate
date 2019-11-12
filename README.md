@@ -104,7 +104,35 @@ router.use('/books', bookRoutes)
 ## Database 
 
 ### Seeding
-more to come...
+You can seed the database by following these steps.
+
+Create a new file named `1_Book.seed.js` in the `seeds` directory located inside the database package.
+
+The file must be named after the following pattern `<NUMBER>_<Model>.seed.js`
+
+- The `number` represent the order by which the seed files will be processed (inserted inside the db). This is important for 
+models that contains references to other models (foreign keys).
+
+- The `model` is the name of the model that will be seeded. Is MUST start with an uppercase.
+
+Add the data to this file.
+```javascript
+export default {
+    model: 'Book',
+    data: [
+        { 
+            id: 1,
+            title: 'Zero to One'
+        },
+        { 
+            id: 2,
+            title: 'The lean startup'
+        },     
+    ]   
+}
+``` 
+
+And that's it ! Now when you run the server in development mode, the database will contain the data.
 
 ### Migration
 more to come...
