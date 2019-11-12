@@ -17,7 +17,8 @@ const development = {
 	db: {
 		host: process.env.DEV_DB_HOST || 'localhost',
 		port: parseInt(process.env.DEV_DB_PORT) || DEFAULT_DB_PORT,
-		name: process.env.DEV_DB_NAME || 'db'
+		name: process.env.DEV_DB_NAME || 'db',
+		eraseDbOnSync: true,
 	}
 }
 
@@ -30,7 +31,8 @@ const test = {
 		host: process.env.TEST_DB_HOST || 'localhost',
 		port: parseInt(process.env.TEST_DB_PORT) || DEFAULT_DB_PORT,
 		name: process.env.TEST_DB_NAME || 'test'
-	}
+	},
+	eraseDbOnSync: true,
 }
 
 const production = {
@@ -42,7 +44,8 @@ const production = {
 		host: process.env.PROD_DB_HOST,
 		port: parseInt(process.env.PROD_DB_PORT) || DEFAULT_DB_PORT,
 		name: process.env.PROD_DB_NAME || 'production',
-	}
+	},
+	eraseDbOnSync: false,
 }
 
 const config = {

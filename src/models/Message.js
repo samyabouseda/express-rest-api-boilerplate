@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose'
+import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
 	text: {
@@ -6,10 +6,9 @@ const schema = new Schema({
 		required: true,
 	},
 	user: {
-		type: Types.ObjectId,
+		type: Number,
 		ref: 'User',
-		// TODO: refactor seeding to include foreign key creation.
-		// required: true,
+		required: true,
 	},
 })
 

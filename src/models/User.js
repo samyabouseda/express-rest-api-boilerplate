@@ -2,9 +2,11 @@ import { Schema, model } from 'mongoose'
 
 // TODO: Create an API for the models so devs don't need to know about the DB used (not the ORM)
 const userSchema = new Schema({
+	_id: Number,
 	username: {
 		type: String,
 		unique: true,
+		required: true,
 	},
 })
 

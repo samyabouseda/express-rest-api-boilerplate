@@ -1,22 +1,22 @@
-export const messages = {
+export default {
 	model: 'Message',
 	foreignKeys: {
-		userId: {
+		user: {
 			model: 'User',
 			field: 'id',
 		},
 	},
 	data: [
 		{
-			userId: 1,
+			user: 1,
 			text: 'Hello world!',
 		},
 		{
-			userId: 1,
+			user: 1,
 			text: 'Hello again!',
 		},
 		{
-			userId: 2,
+			user: 2,
 			text: 'Hi! How are you ?',
 		},
 	],
