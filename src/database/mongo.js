@@ -1,6 +1,11 @@
 import config from '../../config'
-import mongoose from 'mongoose'
-import models from '../models'
+import mongoose, { models } from 'mongoose'
+
+import fs from 'fs'
+import util from 'util'
+import path from 'path'
+
+const readDir = util.promisify(fs.readdir).bind(fs)
 
 const {
 	host,
@@ -8,6 +13,7 @@ const {
 	name,
 	eraseDbOnSync,
 } = config.db
+
 const DATABASE_URL = `mongodb://${host}:${port}/${name}x`
 
 const options = {
@@ -24,98 +30,34 @@ const connectMongoDb = () =>
 	mongoose
 		.connect(DATABASE_URL, options)
 		.then(async () => {
-			if (eraseDbOnSync) { await eraseDb() }
-			seedDatabase()
-			// await seedDb(userSeeds)
-			// await seedDb(messageSeeds)
+			if (eraseDbOnSync) { await eraseDatabase() }
+			await seedDatabase()
 		})
 		.catch(error => {
 			console.log(error)
 		})
 
-// TODO: Refactor and move to specialized file.
-// const fs = require('fs')
-// const util = require('util')
-// const readFile = util.promisify(fs.readFile)
-// const dataFilePath = `${__dirname}/seeds/data.json`
-
-// let seeds = []
-// // const seedRegex = **/?(*.)+(seed).[tj]s?(x)
-// readFile(dataFilePath)
-// 	.then(data => {
-// 		seeds = JSON.parse(data)
-// 	})
-// 	.catch(error => console.log(error))
-// //
-
-const eraseDb = async () => {
-	// TODO: Refactor to include all models dynamically.
+const eraseDatabase = async () => {
+	const iterableModels = Object.values(models)
 	await Promise.all([
-		models.User.deleteMany({}),
-		models.Message.deleteMany({}),
+		iterableModels.map(async model => model.deleteMany({}))
 	])
 }
 
-// const seed = async seeds => {
-// 	await seeds.map(async seed => {
-// 		const entry = await createEntry(seed)
-// 		const owns = seed.owns
-// 		if (owns) {
-// 			owns.map(async own => {
-// 				const { model, fields } = own
-// 				const { fk, ...field } = fields
-// 				const obj = {
-// 					model,
-// 					fields: {
-// 						[fk]: entry.id,
-// 						...field,
-// 					},
-// 				}
-// 				await createEntry(obj)
-// 			})
-// 		}
-// 	})
-// }
-
-// const createEntry = async seed => {
-// 	const entry = new models[seed.model](seed.fields)
-// 	await entry.save()
-// 	return entry
-// }
-
-// Respect order of files
-import userSeeds from './seeds/0_User.seed'
-import messageSeeds from './seeds/1_Message.seed'
-
-const fs = require('fs')
-const util = require('util')
-const readDir = util.promisify(fs.readdir).bind(fs)
-const path = require('path')
-
-async function seedDatabase (runSaveMiddleware = false) {
-	// const dir = await readDir(__dirname)
-	const seeds = await readDir(`${__dirname}/seeds`)
-
-	for (const file of seeds) {
-		const fileName = file.split('.seed.js')[0].split('_')[1]
-		// const modelName = toTitleCase(fileName)
-		const model = mongoose.models[fileName]
-
-		if (!model) throw new Error(`Cannot find Model '${fileName}'`)
-		const fileContents = require(path.join(__dirname, 'seeds', file))
-
+const seedDatabase = async (runSaveMiddleware = true) => {
+	const seedsDir = path.join(__dirname, 'seeds')
+	const seedFiles = await readDir(seedsDir)
+	seedFiles.map(async seedFile => {
+		const modelName = getModelNameFrom(seedFile)
+		const model = models[modelName]
+		if (!model) throw new Error(`Cannot find Model '${modelName}'`)
+		const { default: { data } } = require(path.join(seedsDir, seedFile))
 		runSaveMiddleware
-			? await model.create(fileContents.default.data)
-			: await model.insertMany(fileContents.default.data)
-	}
+			? await model.create(data)
+			: await model.insertMany(data)
+	})
 }
 
-// const seedDb = async seeds => {
-// 	const { model, data } = seeds
-// 		await data.map(async seed => {
-// 			const entry = await new models[model](seed)
-// 			await entry.save()
-// 		})
-// }
+const getModelNameFrom = fileName => fileName.split('.seed.js')[0].split('_')[1]
 
 export { connectMongoDb }

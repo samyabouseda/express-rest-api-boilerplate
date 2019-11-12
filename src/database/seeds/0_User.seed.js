@@ -3,7 +3,7 @@ export default {
 	data: [
 		{
 			_id: 1,
-			username: 'Bob',
+			username: 'Bobb',
 		},
 		{
 			_id: 2,
