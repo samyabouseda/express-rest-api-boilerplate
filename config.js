@@ -12,8 +12,7 @@ const base = {
 const development = {
 	configId: 'development',
 	app: {
-		port: parseInt(process.env.DEV_APP_PORT) || DEFAULT_WEB_PORT
-		url: process.env.MONGODB_URI
+		port: parseInt(process.env.DEV_APP_PORT) || DEFAULT_WEB_PORT,
 	},
 	db: {
 		driver: 'mongodb',
@@ -21,7 +20,8 @@ const development = {
 		port: parseInt(process.env.DEV_DB_PORT) || DEFAULT_DB_PORT,
 		name: process.env.DEV_DB_NAME || 'db',
 		eraseDbOnSync: true,
-		url: `${this.driver}://${this.host}:${this.port}/${this.name}xx` || process.env.MONGO_URI
+		// url: `${this.driver}://${this.host}:${this.port}/${this.name}xx` || process.env.MONGO_URI
+		url: process.env.MONGODB_URI
 	}
 }
 
@@ -33,7 +33,7 @@ const test = {
 	db: {
 		host: process.env.TEST_DB_HOST || 'localhost',
 		port: parseInt(process.env.TEST_DB_PORT) || DEFAULT_DB_PORT,
-		name: process.env.TEST_DB_NAME || 'test'
+		name: process.env.TEST_DB_NAME || 'test',
 		url: process.env.MONGODB_URI
 	},
 	eraseDbOnSync: true,
