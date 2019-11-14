@@ -12,9 +12,10 @@ const {
 	port,
 	name,
 	eraseDbOnSync,
+	url,
 } = config.db
 
-const DATABASE_URL = `mongodb://${host}:${port}/${name}x`
+const DATABASE_URL = url
 
 const options = {
 	useNewUrlParser: true,

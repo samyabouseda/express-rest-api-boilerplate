@@ -15,10 +15,12 @@ const development = {
 		port: parseInt(process.env.DEV_APP_PORT) || DEFAULT_WEB_PORT
 	},
 	db: {
+		driver: 'mongodb',
 		host: process.env.DEV_DB_HOST || 'localhost',
 		port: parseInt(process.env.DEV_DB_PORT) || DEFAULT_DB_PORT,
 		name: process.env.DEV_DB_NAME || 'db',
 		eraseDbOnSync: true,
+		url: `${this.driver}://${this.host}:${this.port}/${this.name}xx` || process.env.MONGO_URI
 	}
 }
 
@@ -46,6 +48,7 @@ const production = {
 		name: process.env.PORT || 'production',
 	},
 	eraseDbOnSync: false,
+	url: `${this.driver}://${this.host}:${this.port}/${this.name}xx` || process.env.MONGODB_URI
 }
 
 const config = {
