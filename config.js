@@ -12,7 +12,7 @@ const base = {
 const development = {
 	configId: 'development',
 	app: {
-		port: parseInt(process.env.DEV_APP_PORT) || DEFAULT_WEB_PORT,
+		port: parseInt(process.env.PORT) || DEFAULT_WEB_PORT,
 	},
 	db: {
 		driver: 'mongodb',

@@ -1,16 +1,17 @@
+// TODO: add a utility to autogenerate ids.
 export default {
 	model: 'User',
 	data: [
 		{
-			_id: 1,
+			_id: "000000000000000000000001",
 			username: 'Bobb',
 		},
 		{
-			_id: 2,
+			_id: "000000000000000000000002",
 			username: 'Alice',
 		},
 		{
-			_id: 3,
+			_id: "000000000000000000000003",
 			username: 'Fred',
 		},
 	],

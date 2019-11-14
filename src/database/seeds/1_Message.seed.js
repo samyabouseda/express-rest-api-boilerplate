@@ -8,15 +8,15 @@ export default {
 	},
 	data: [
 		{
-			user: 1,
+			user: "000000000000000000000001",
 			text: 'Hello world!',
 		},
 		{
-			user: 1,
+			user: "000000000000000000000001",
 			text: 'Hello again!',
 		},
 		{
-			user: 2,
+			user: "000000000000000000000002",
 			text: 'Hi! How are you ?',
 		},
 	],
