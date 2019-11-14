@@ -43,7 +43,7 @@ const production = {
 	db: {
 		host: process.env.PROD_DB_HOST,
 		port: parseInt(process.env.PROD_DB_PORT) || DEFAULT_DB_PORT,
-		name: process.env.PROD_DB_NAME || 'production',
+		name: process.env.PORT || 'production',
 	},
 	eraseDbOnSync: false,
 }
