@@ -28,7 +28,7 @@ const connectMongoDb = () =>
 		.then(async () => {
 			if (ERASE_DB_ON_SYNC) { await eraseDatabase() }
 			try {
-				// await seedDatabase()
+				await seedDatabase()
 			} catch (error) {
 				console.log('Database seeding failed!')
 			}
@@ -51,7 +51,7 @@ const seedDatabase = async (runSaveMiddleware = true) => {
 		const modelName = getModelNameFrom(seedFile)
 		const model = models[modelName]
 		if (!model) throw new Error(`Cannot find Model '${modelName}'`)
-		const { default: { data } } = require(path.join(seedsDir, seedFile))
+		const { data } = require(path.join(seedsDir, seedFile))
 		runSaveMiddleware
 			? await model.create(data)
 			: await model.insertMany(data)

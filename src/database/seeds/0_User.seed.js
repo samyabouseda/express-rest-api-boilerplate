@@ -1,9 +1,9 @@
-export default {
+module.exports = {
 	model: 'User',
 	data: [
 		{
 			_id: "000000000000000000000001",
-			username: 'Bobb',
+			username: 'Sam',
 		},
 		{
 			_id: "000000000000000000000002",
