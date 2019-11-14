@@ -182,6 +182,7 @@ heroku apps:info
 - [Cors](https://github.com/troygoode/node-cors) - For CORS support 
 - [Nodemon](https://nodemon.io) - For automatic server restart on file change
 - [Mongoose](https://mongoosejs.com) - Mongodb object modeling
+- [Heroku](https://www.heroku.com) - Platform to deploy, manage and scale apps.
 
 ## Author
 
