@@ -27,8 +27,9 @@ const options = {
 	connectTimeoutMS: 10000,
 }
 
-const connectMongoDb = () =>
-	mongoose
+const connectMongoDb = () => {
+	console.log(DATABASE_URL)
+	return mongoose
 		.connect(DATABASE_URL, options)
 		.then(async () => {
 			if (eraseDbOnSync) { await eraseDatabase() }
@@ -37,6 +38,7 @@ const connectMongoDb = () =>
 		.catch(error => {
 			console.log(error)
 		})
+}
 
 const eraseDatabase = async () => {
 	const iterableModels = Object.values(models)
