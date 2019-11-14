@@ -41,8 +41,8 @@ const production = {
 		port:  parseInt(process.env.PORT)
 	},
 	db: {
-		host: process.env.PROD_DB_HOST,
-		port: parseInt(process.env.PROD_DB_PORT) || DEFAULT_DB_PORT,
+		host: process.env.MONGO_HOSTNAME,
+		port: parseInt(process.env.MONGO_PORT) || DEFAULT_DB_PORT,
 		name: process.env.PORT || 'production',
 	},
 	eraseDbOnSync: false,

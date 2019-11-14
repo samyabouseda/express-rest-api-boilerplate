@@ -31,7 +31,7 @@ const connectMongoDb = () =>
 		.connect(DATABASE_URL, options)
 		.then(async () => {
 			if (eraseDbOnSync) { await eraseDatabase() }
-			await seedDatabase()
+			// await seedDatabase()
 		})
 		.catch(error => {
 			console.log(error)
