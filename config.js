@@ -48,7 +48,7 @@ const production = {
 		name: process.env.PORT || 'production',
 	},
 	eraseDbOnSync: false,
-	url: `${this.driver}://${this.host}:${this.port}/${this.name}xx` || process.env.MONGODB_URI
+	url: process.env.MONGODB_URI  //`${this.driver}://${this.host}:${this.port}/${this.name}xx`
 }
 
 const config = {
