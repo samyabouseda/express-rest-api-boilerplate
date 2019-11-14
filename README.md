@@ -148,8 +148,32 @@ npm test
 more to come...
 
 ## Deployment
+
+Create a new heroku app.
+https://devcenter.heroku.com/articles/git#for-a-new-heroku-app
 ```
-more to come...
+heroku create the-name-of-your-app
+```
+
+Add the MondoDB addon.
+https://elements.heroku.com/addons/mongolab
+```
+heroku addons:create mongolab:sandbox
+```
+
+Deploy your app. https://devcenter.heroku.com/articles/git#deploying-code
+```
+git push heroku master
+```
+
+Open the app in your favourite browser.
+```
+heroku open
+```
+
+Or get the url with the following command
+```
+heroku apps:info
 ```
 
 ## Built with
