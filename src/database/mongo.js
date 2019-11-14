@@ -8,14 +8,9 @@ import path from 'path'
 const readDir = util.promisify(fs.readdir).bind(fs)
 
 const {
-	host,
-	port,
-	name,
-	eraseDbOnSync,
-	url,
+	DATABASE_URL,
+	ERASE_DB_ON_SYNC,
 } = config.db
-
-const DATABASE_URL = url
 
 const options = {
 	useNewUrlParser: true,
@@ -27,18 +22,20 @@ const options = {
 	connectTimeoutMS: 10000,
 }
 
-const connectMongoDb = () => {
-	console.log(DATABASE_URL)
-	return mongoose
+const connectMongoDb = () =>
+	mongoose
 		.connect(DATABASE_URL, options)
 		.then(async () => {
-			if (eraseDbOnSync) { await eraseDatabase() }
-			await seedDatabase()
+			if (ERASE_DB_ON_SYNC) { await eraseDatabase() }
+			try {
+				// await seedDatabase()
+			} catch (error) {
+				console.log('Database seeding failed!')
+			}
 		})
 		.catch(error => {
 			console.log(error)
 		})
-}
 
 const eraseDatabase = async () => {
 	const iterableModels = Object.values(models)

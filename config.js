@@ -2,26 +2,26 @@ require('dotenv').config()
 
 const env = process.env.NODE_ENV // 'development', 'test' or 'production'
 
-const DEFAULT_WEB_PORT = 8080
+const DEFAULT_WEB_PORT = 8000
 const DEFAULT_DB_PORT = 27017
 
 const base = {
-	// YOUR BASE CONFIG HERE
+	app: {
+		PORT: parseInt(process.env.PORT) || DEFAULT_WEB_PORT
+	},
+	db: {
+		PORT: parseInt(process.env.DB_PORT) || DEFAULT_DB_PORT,
+		DATABASE_URL: process.env.DATABASE_URL,
+		ERASE_DB_ON_SYNC: false
+	}
 }
 
 const development = {
 	configId: 'development',
-	app: {
-		port: parseInt(process.env.PORT) || DEFAULT_WEB_PORT,
-	},
 	db: {
-		driver: 'mongodb',
-		host: process.env.DEV_DB_HOST || 'localhost',
-		port: parseInt(process.env.DEV_DB_PORT) || DEFAULT_DB_PORT,
-		name: process.env.DEV_DB_NAME || 'db',
-		eraseDbOnSync: true,
-		// url: `${this.driver}://${this.host}:${this.port}/${this.name}xx` || process.env.MONGO_URI
-		url: process.env.MONGODB_URI
+		ERASE_DB_ON_SYNC: true,
+		PORT: base.db.PORT,
+		DATABASE_URL: base.db.DATABASE_URL,
 	}
 }
 
@@ -31,27 +31,22 @@ const test = {
 		port: parseInt(process.env.TEST_APP_PORT) || DEFAULT_WEB_PORT
 	},
 	db: {
-		host: process.env.TEST_DB_HOST || 'localhost',
-		port: parseInt(process.env.TEST_DB_PORT) || DEFAULT_DB_PORT,
-		name: process.env.TEST_DB_NAME || 'test',
-		url: process.env.MONGODB_URI
+		ERASE_DB_ON_SYNC: true,
+		PORT: base.db.PORT,
+		DATABASE_URL: base.db.DATABASE_URL,
 	},
-	eraseDbOnSync: true,
 }
 
 const production = {
 	configId: 'production',
 	app: {
-		port:  parseInt(process.env.PORT)
+		PORT: parseInt(process.env.PORT)
 	},
 	db: {
-		host: process.env.MONGO_HOSTNAME,
-		port: parseInt(process.env.MONGO_PORT) || DEFAULT_DB_PORT,
-		name: process.env.PORT || 'production',
-		url: process.env.MONGODB_URI
+		PORT: process.env.DB_PORT,
+		DATABASE_URL: process.env.MONGODB_URI || process.env.DATABASE_URL,
+		ERASE_ON_DB_SYNC: false,
 	},
-	eraseDbOnSync: false,
-	//`${this.driver}://${this.host}:${this.port}/${this.name}xx`
 }
 
 const config = {

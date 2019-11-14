@@ -1,4 +1,3 @@
-// TODO: add a utility to autogenerate ids.
 export default {
 	model: 'User',
 	data: [
