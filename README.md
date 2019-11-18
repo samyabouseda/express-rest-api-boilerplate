@@ -42,8 +42,8 @@ more to come...
 ```    
 
 ## Usage
-Create a model in the models folder.
-To learn more about this, check the [mongoose documentation](https://mongoosejs.com).
+Create a new file named `Book.js` in the `models` folder.
+To learn more about creating models, check the [mongoose documentation](https://mongoosejs.com).
 ```js
 import { Schema, model } from 'mongoose'
 
@@ -63,8 +63,8 @@ const Book = model('Book', bookSchema)
 export default Book
 
 ```
-
-Create a controller for that model in the controllers folder. To learn more about this, check the [Express documentation](https://expressjs.com/en/guide/routing.html).
+Add a new file named `book-controller.js` in the `controllers` folder.
+Create a controller for the `Book` model in that file. To learn more about creating controllers, check the [Express documentation](https://expressjs.com/en/guide/routing.html).
 ```js
 const getAll = async (req, res) => {
     const books = await req.context.models.Book.find()
@@ -81,7 +81,7 @@ const getById = async (req, res) => {
 export default { getAll, getById }
 ```
 
-Create a new file named `bookRoutes.js` in the `routes` folder. Link the newly created controller to the routes.
+Create a new file named `book-routes.js` in the `routes` folder. Link the newly created controller to the routes.
 ```js
 import { Router } from 'express'
 import { BookController } from '../controllers'
@@ -182,7 +182,9 @@ heroku apps:info
 - [Cors](https://github.com/troygoode/node-cors) - For CORS support 
 - [Nodemon](https://nodemon.io) - For automatic server restart on file change
 - [Mongoose](https://mongoosejs.com) - Mongodb object modeling
-- [Heroku](https://www.heroku.com) - Platform to deploy, manage and scale apps.
+- [Heroku](https://www.heroku.com) - Platform to deploy, manage and scale apps
+- [Jest](https://jestjs.io) - JavaScript Testing Framework
+- [Prettier](https://prettier.io) - Code formater 
 
 ## Author
 
