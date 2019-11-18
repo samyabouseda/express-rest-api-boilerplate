@@ -5,7 +5,8 @@
 
 // TODO: https://stackoverflow.com/questions/47997652/jest-beforeall-share-between-multiple-test-files?rq=1
 
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import config from '../config'
 
 mongoose.set('useNewUrlParser', true)
 mongoose.set('useUnifiedTopology', true)
@@ -46,12 +47,11 @@ async function dropAllCollections() {
 }
 
 module.exports = {
-	setupDB(databaseName) {
+	setupDB() {
 		// Connect to Mongoose
 		beforeAll(async () => {
-			// TODO: Add support for Docker connection.
-			const url = `mongodb://127.0.0.1/${databaseName}`
-			await mongoose.connect(url, { useNewUrlParser: true })
+			const { DATABASE_URL } = config.db
+			await mongoose.connect(DATABASE_URL)
 		})
 
 		// Cleans up database between each test

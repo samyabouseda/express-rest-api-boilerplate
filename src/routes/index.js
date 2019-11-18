@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { OK } from 'http-status-codes'
-import userRoutes from './userRoutes'
-import messageRoutes from './messageRoutes'
+import userRoutes from './user-routes'
+import messageRoutes from './message-routes'
 const router = Router()
 
 router.use('/users', userRoutes)
