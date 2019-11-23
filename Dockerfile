@@ -1,7 +1,7 @@
-FROM node:12
+FROM node:12-alpine
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app/src
 
 # Install app dependencies
 COPY package*.json ./
@@ -11,7 +11,7 @@ RUN npm install
 COPY . .
 
 # Expose port
-EXPOSE 8080
+EXPOSE 80
 
 # Start application
 CMD [ "npm", "start" ]

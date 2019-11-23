@@ -1,10 +1,13 @@
-version: '2'
+version: '3'
 
 services:
   web:
     build: .
     ports:
-      - '8080:8080'
+      - '80:8000'
+    volumes:
+      - .:/app/src
+    restart: always
     depends_on:
       - mongo
   mongo:
